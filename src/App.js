@@ -130,23 +130,7 @@ function App() {
   const calculateTotal = () => {
     return items.reduce((total, item) => total + (item.count * item.price), 0);
   }
-  
-  // const handleOrder = () => {
-  //   // If no items in cart
-  //   if (!items.some(item => item.count > 0)) {
-  //     console.log("No items in cart.");
-  //     return; // Return here to exit the function if there are no items in the cart
-  //   }
-  //   setOrderPlaced(true);
-  //   // Generate receipt 
-  //   console.log("Order placed!");
-  //   console.log("Order details:");
-  //   items.forEach(item => {
-  //     if (item.count > 0) {
-  //       console.log(`${item.count} ${item.title}`);
-  //     }
-  //   });
-  // };
+
   const handleOrder = () => {
     // If no items in cart
     if (!items.some(item => item.count > 0)) {
@@ -164,7 +148,6 @@ function App() {
     setOrderPlaced(true); // Set orderPlaced state to true to show the order confirmation alert
   };
   
-
   // Clear All
   const zero_out = (id) => {
     setItems( (prevItems) => (
