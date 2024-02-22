@@ -1,7 +1,9 @@
 import './App.css';
 import MenuItem from './components/MenuItem';
-
-// import 'bootstrap/dist/css/bootstrap.min.css'; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
+import React, { useState } from 'react';
+/* Option 2: Import via CSS */
+import 'bootstrap/dist/css/bootstrap.min.css'; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const logo = [{
   imageName: 'logo.png',
@@ -82,8 +84,124 @@ const menuItems = [
   }
 ];
 
-
 function App() {
+  let i = menuItems.map((item) => 
+    ({
+        id: item.id,
+        title: item.title, 
+        description: item.description,
+        imageName: item.imageName,
+        price: item.price,
+        count: 0
+    }))
+  const [items, setItems] = useState(i);
+  
+  // const increment = (id) => {
+  //   setItems( (prevItems) => (
+  //    prevItems.map((item) => 
+  //       {
+  //         if (id === item.id) {
+  //           let nc = item.count + 1
+  //           return {...item, count: nc}
+  //         } else {
+  //           return {...item}
+  //         }
+  //       }
+  //       )
+  //       ));
+  //   setTotal(total + item.price);
+  // }
+  const increment = (id) => {
+    setItems((prevItems) => (
+      prevItems.map((item) => {
+        if (id === item.id) {
+          let nc = item.count + 1;
+          return { ...item, count: nc };
+        } else {
+          return { ...item };
+        }
+      })
+    ));
+  };
+
+  // const decrement = (id) => {
+  //   setItems(
+  //     items.map((item) => 
+  //       {
+  //         if (id === item.id) {
+  //           if (item.count !== 0) {
+  //             let nc = item.count - 1
+  //             return {...item, count: nc}
+  //           } 
+  //         } 
+  //         return {...item}
+  //       }
+  //     )
+  //   );
+  //   setTotal(total - item.price);
+  // }
+  const decrement = (id) => {
+    setItems(
+      items.map((item) => {
+        if (id === item.id) {
+          if (item.count !== 0) {
+            let nc = item.count - 1;
+            return { ...item, count: nc };
+          }
+        }
+        return { ...item };
+      })
+    );
+  };
+  
+  // Calculate total
+  const calculateTotal = () => {
+    return items.reduce((total, item) => total + (item.count * item.price), 0);
+  }
+  
+  // Order
+  // const handleOrder = () => {
+  //   // If no items in cart
+  //   items.map((item) => {
+  //     if (item.count === 0) {
+  //       console.log("No items in cart. " + item.count);
+  //     } else {
+  //       // Generate receipt 
+  //       console.log("Order placed!");
+  //       console.log("Order details:");
+  //       console.log(item.count + " " + item.title);
+  //       return null;
+  //     }
+  //   })
+  // };
+  const handleOrder = () => {
+    // If no items in cart
+    if (!items.some(item => item.count > 0)) {
+      console.log("No items in cart.");
+      return; // Return here to exit the function if there are no items in the cart
+    }
+    
+    // Generate receipt 
+    console.log("Order placed!");
+    console.log("Order details:");
+    items.forEach(item => {
+      if (item.count > 0) {
+        console.log(`${item.count} ${item.title}`);
+      }
+    });
+  };
+  
+
+  // Clear All
+  const zero_out = (id) => {
+    setItems( (prevItems) => (
+     prevItems.map((item) => 
+        { return {...item, count: 0} })))}
+
+  const clearCart = (id) => {
+    zero_out(id)
+  };
+
   return (
     <div>
         <div class="container-fluid">
@@ -107,16 +225,36 @@ function App() {
 
       <div className="menu">
         {/* Display menu items dynamicaly here by iterating over the provided menuItems */}
-        {menuItems.map((item) => 
+        {items.map((item) => 
           (<div key={item.id}>
             <MenuItem
+              id={item.id}
               title={item.title}
               image={item.imageName}
               description={item.description}
               price={item.price}
+              count={item.count}
+              increment={increment}
+              decrement={decrement}
             />
           </div>
         ))}
+      </div>
+      
+      <div class="row">
+        <div class="col-12">
+          <p class="subtotal">Subtotal {calculateTotal().toFixed(2)}</p>
+          <button type="button" class="order-btn" onClick={() => {handleOrder()}} data-toggle="modal" data-target="#halllooo">Order</button>
+          <button class="clearall-btn" onClick={() => {clearCart()}}>Clear all</button>
+        </div>
+      </div>
+
+      <div id="halllooo" class="modal fade bd-example-modal-sm" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            work pls
+          </div>
+        </div>
       </div>
 
     </div>

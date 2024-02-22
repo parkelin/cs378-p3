@@ -1,21 +1,21 @@
 {
   "name": "menu-app",
   "version": "0.1.0",
-  "homepage": "https://parkelin.github.io/cs378-p2",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-popup": "^0.11.2",
     "react-scripts": "5.0.1",
+    "reactjs-popup": "^2.0.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -38,8 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.1.1"
   }
 }

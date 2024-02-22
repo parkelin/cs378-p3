@@ -1,12 +1,14 @@
 import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 // This is a functional component that represents a single menu item. It currently takes in the title and displays it in an h2 element.
 // Modify the component to take in all the other properties of a menu item you need and display them in the component.
 // Use bootstrap to style the elements so that it looks like the mockup in the assignment.
 // Hint: You can use the image name to get the image from the images folder.
-const MenuItem = ({ title, image, description, price }) => {
+const MenuItem = ({ id, title, image, description, price, count, increment, decrement }) => {
+
     return (
         <div class="menu">
             <div class="row">
@@ -22,9 +24,16 @@ const MenuItem = ({ title, image, description, price }) => {
                     
                     <div class="row">
                         <div class="col-md-12">
-                            {/* Price + Button */}
+                            {/* Price */}
                             <p class="menu-price">{price}</p>
-                            <button class="btn"> Add </button>
+
+                            <div class="toggle">
+                                {/* - button */}
+                                <i class="bi bi-dash-circle" onClick={() => decrement(id)}> {count} </i>
+
+                                {/* + button */}
+                                <i class="bi bi-plus-circle" onClick={() => increment(id)}></i>
+                            </div>
                         </div>
                     </div>
                 </div>
