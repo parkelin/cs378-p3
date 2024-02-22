@@ -84,7 +84,15 @@
 }
 
 .btn-success {
-  margin-left: 89%;
+  margin-left: 94%;
+  height: 60%;
+  padding-left: 18px;
+  padding-right: 18px;
+  border-radius: 50px;
+}
+
+.btn-warning {
+  margin-left: 94%;
   height: 60%;
   padding-left: 18px;
   padding-right: 18px;
@@ -110,4 +118,8 @@
 .col-12 {
   display: flex;
   padding-bottom: 5%;
+}
+
+.alerts {
+  margin-top: -10%;
 }

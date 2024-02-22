@@ -86,6 +86,7 @@ const menuItems = [
 
 function App() {
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [showNoItemsAlert, setShowNoItemsAlert] = useState(false);
 
   let i = menuItems.map((item) => 
     ({
@@ -97,7 +98,7 @@ function App() {
         count: 0
     }))
   const [items, setItems] = useState(i);
-  
+
   const increment = (id) => {
     setItems((prevItems) => (
       prevItems.map((item) => {
@@ -130,13 +131,28 @@ function App() {
     return items.reduce((total, item) => total + (item.count * item.price), 0);
   }
   
+  // const handleOrder = () => {
+  //   // If no items in cart
+  //   if (!items.some(item => item.count > 0)) {
+  //     console.log("No items in cart.");
+  //     return; // Return here to exit the function if there are no items in the cart
+  //   }
+  //   setOrderPlaced(true);
+  //   // Generate receipt 
+  //   console.log("Order placed!");
+  //   console.log("Order details:");
+  //   items.forEach(item => {
+  //     if (item.count > 0) {
+  //       console.log(`${item.count} ${item.title}`);
+  //     }
+  //   });
+  // };
   const handleOrder = () => {
     // If no items in cart
     if (!items.some(item => item.count > 0)) {
-      console.log("No items in cart.");
+      setShowNoItemsAlert(true); // Show the "No items in cart" alert
       return; // Return here to exit the function if there are no items in the cart
     }
-    setOrderPlaced(true);
     // Generate receipt 
     console.log("Order placed!");
     console.log("Order details:");
@@ -145,7 +161,9 @@ function App() {
         console.log(`${item.count} ${item.title}`);
       }
     });
+    setOrderPlaced(true); // Set orderPlaced state to true to show the order confirmation alert
   };
+  
 
   // Clear All
   const zero_out = (id) => {
@@ -169,30 +187,43 @@ function App() {
           </div>
         </div>
 
-        {/* Bootstrap Alert */}
-        {orderPlaced && (
-          <div className="alert alert-success alert-dismissible fade show" role="alert">
-            Order placed!
-            
-            {/* Display order details */}
-            {items.map(item => {
-              if (item.count > 0) {
-                return (
-                  <p class="alert-item" key={item.id}>{item.count} {item.title}</p>
-                );
-              }
-              return null;
-            })}
-
-            <button type="button" className="btn-success" onClick={() => setOrderPlaced(false)}>OK</button>
-          </div>
-        )}
-
         <div class="container">
           <div class="row">
             <div class="col-md-12" align="center">
               <p id="slogan"> Authentic Japanese Flavors </p> 
               <p id="slogan2"> Blend of traditional & innovation </p>
+            </div>
+          </div>
+        </div>
+
+      {/* Alerts */}
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6"></div>
+            <div class="alerts">
+                      {orderPlaced ? (
+                <div className="alert alert-success alert-dismissible fade show" role="alert">
+                  Order placed!
+                  {/* Display order details */}
+                  {items.map(item => {
+                    if (item.count > 0) {
+                      return (
+                        <p className="alert-item" key={item.id}>{item.count} {item.title}</p>
+                      );
+                    }
+                    return null;
+                  })}
+                  <button type="button" className="btn btn-success" onClick={() => setOrderPlaced(false)}>OK</button>
+                </div>
+              ) : (
+                // Check if there are no items in the cart
+                showNoItemsAlert && !items.some(item => item.count > 0) ? (
+                  <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                    No items in cart.
+                    <button type="button" className="btn btn-warning" onClick={() => setShowNoItemsAlert(false)}>OK</button>
+                  </div>
+                ) : null // Render null if there are items in the cart
+              )}
             </div>
           </div>
         </div>
