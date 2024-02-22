@@ -85,6 +85,8 @@ const menuItems = [
 ];
 
 function App() {
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
   let i = menuItems.map((item) => 
     ({
         id: item.id,
@@ -96,21 +98,6 @@ function App() {
     }))
   const [items, setItems] = useState(i);
   
-  // const increment = (id) => {
-  //   setItems( (prevItems) => (
-  //    prevItems.map((item) => 
-  //       {
-  //         if (id === item.id) {
-  //           let nc = item.count + 1
-  //           return {...item, count: nc}
-  //         } else {
-  //           return {...item}
-  //         }
-  //       }
-  //       )
-  //       ));
-  //   setTotal(total + item.price);
-  // }
   const increment = (id) => {
     setItems((prevItems) => (
       prevItems.map((item) => {
@@ -124,22 +111,6 @@ function App() {
     ));
   };
 
-  // const decrement = (id) => {
-  //   setItems(
-  //     items.map((item) => 
-  //       {
-  //         if (id === item.id) {
-  //           if (item.count !== 0) {
-  //             let nc = item.count - 1
-  //             return {...item, count: nc}
-  //           } 
-  //         } 
-  //         return {...item}
-  //       }
-  //     )
-  //   );
-  //   setTotal(total - item.price);
-  // }
   const decrement = (id) => {
     setItems(
       items.map((item) => {
@@ -159,28 +130,13 @@ function App() {
     return items.reduce((total, item) => total + (item.count * item.price), 0);
   }
   
-  // Order
-  // const handleOrder = () => {
-  //   // If no items in cart
-  //   items.map((item) => {
-  //     if (item.count === 0) {
-  //       console.log("No items in cart. " + item.count);
-  //     } else {
-  //       // Generate receipt 
-  //       console.log("Order placed!");
-  //       console.log("Order details:");
-  //       console.log(item.count + " " + item.title);
-  //       return null;
-  //     }
-  //   })
-  // };
   const handleOrder = () => {
     // If no items in cart
     if (!items.some(item => item.count > 0)) {
       console.log("No items in cart.");
       return; // Return here to exit the function if there are no items in the cart
     }
-    
+    setOrderPlaced(true);
     // Generate receipt 
     console.log("Order placed!");
     console.log("Order details:");
@@ -190,7 +146,6 @@ function App() {
       }
     });
   };
-  
 
   // Clear All
   const zero_out = (id) => {
@@ -213,6 +168,25 @@ function App() {
             
           </div>
         </div>
+
+        {/* Bootstrap Alert */}
+        {orderPlaced && (
+          <div className="alert alert-success alert-dismissible fade show" role="alert">
+            Order placed!
+            
+            {/* Display order details */}
+            {items.map(item => {
+              if (item.count > 0) {
+                return (
+                  <p class="alert-item" key={item.id}>{item.count} {item.title}</p>
+                );
+              }
+              return null;
+            })}
+
+            <button type="button" className="btn-success" onClick={() => setOrderPlaced(false)}>OK</button>
+          </div>
+        )}
 
         <div class="container">
           <div class="row">
@@ -239,6 +213,7 @@ function App() {
             />
           </div>
         ))}
+
       </div>
       
       <div class="row">
@@ -248,15 +223,6 @@ function App() {
           <button class="clearall-btn" onClick={() => {clearCart()}}>Clear all</button>
         </div>
       </div>
-
-      <div id="halllooo" class="modal fade bd-example-modal-sm" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            work pls
-          </div>
-        </div>
-      </div>
-
     </div>
   );
 }

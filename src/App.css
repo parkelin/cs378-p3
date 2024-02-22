@@ -79,6 +79,18 @@
   margin-left: 5%;
 }
 
+.alert-item {
+  margin: 0%;
+}
+
+.btn-success {
+  margin-left: 89%;
+  height: 60%;
+  padding-left: 18px;
+  padding-right: 18px;
+  border-radius: 50px;
+}
+
 .order-btn {
   margin-left: 2%;
   padding-left: 15px;
