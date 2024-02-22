@@ -70,11 +70,8 @@
   }
 }
 
-.order-btn {
-  border-radius: 50px;
-}
-
 .subtotal {
+  vertical-align: top;
   margin-right: 20%;
   margin-left: 5%;
 }
@@ -100,18 +97,14 @@
 }
 
 .order-btn {
-  margin-left: 2%;
-  padding-left: 15px;
-  padding-right: 15px;
-  height: 75%;
+  position: absolute; 
+  margin-left: 65%;
   border-radius: 50px;
 }
 
 .clearall-btn {
-  margin-left: 2%;
-  height: 75%;
-  padding-left: 18px;
-  padding-right: 18px;
+  position: absolute; 
+  margin-left: 80%;
   border-radius: 50px;
 }
 
