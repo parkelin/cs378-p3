@@ -29,7 +29,7 @@ const MenuItem = ({ id, title, image, description, price, count, increment, decr
 
                             <div class="toggle">
                                 {/* - button */}
-                                <i style={{paddingLeft: "18%"}} class="bi bi-dash-circle" onClick={() => decrement(id)}> {count} </i>
+                                <i style={{paddingLeft: "10%"}} class="bi bi-dash-circle" onClick={() => decrement(id)}> {count} </i>
 
                                 {/* + button */}
                                 <i class="bi bi-plus-circle" onClick={() => increment(id)}></i>
