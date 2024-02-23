@@ -122,3 +122,9 @@
 .bi bi-dash-circle {
   margin: 120%;
 }
+
+.order-btn:hover,
+.clearall-btn:hover {
+  background-color: lightgray;
+  color: black;
+}
