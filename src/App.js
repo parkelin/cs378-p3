@@ -220,7 +220,7 @@ function App() {
               title={item.title}
               image={item.imageName}
               description={item.description}
-              price={item.price}
+              price={'$' + item.price}
               count={item.count}
               increment={increment}
               decrement={decrement}
@@ -232,7 +232,7 @@ function App() {
       
       <div class="row">
         <div class="col-12">
-          <p class="subtotal">Subtotal {calculateTotal().toFixed(2)}</p>
+          <p class="subtotal">Subtotal ${calculateTotal().toFixed(2)}</p>
           <button type="button" class="order-btn" onClick={() => {handleOrder()}} data-toggle="modal" data-target="#halllooo">Order</button>
           <button class="clearall-btn" onClick={() => {clearCart()}}>Clear all</button>
         </div>
